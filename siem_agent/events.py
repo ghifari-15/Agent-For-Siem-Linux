@@ -30,4 +30,5 @@ def create_event(config: AgentConfig, event_type: str, severity: str, message: s
         "severity": severity,
         "source": source,
         "message": message,
+        "raw_log": message,
     }

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import queue
 import time
 from typing import Any
@@ -15,6 +16,13 @@ def send_event(config: AgentConfig, event: dict[str, Any]) -> bool:
         response.raise_for_status()
         print(f"sent {event['event_type']} from {event['source']}")
         return True
+    except requests.HTTPError as exc:
+        response = exc.response
+        print(f"failed to send event: {exc}")
+        if response is not None:
+            print(f"server response: {response.text}")
+        print(f"event payload: {json.dumps(event, ensure_ascii=False)}")
+        return False
     except requests.RequestException as exc:
         print(f"failed to send event: {exc}")
         return False
