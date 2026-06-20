@@ -10,7 +10,7 @@ from dataclasses import dataclass
 DEFAULT_SERVER_URL = "http://192.168.8.220:5000/api/events"
 DEFAULT_LOG_FILES = ["/var/log/auth.log", "/var/log/syslog"]
 DEFAULT_WATCH_DIRS = ["/tmp/siem-watch"]
-DEFAULT_SERVICES = ["ssh"]
+DEFAULT_SERVICES = ["ssh", "sshd"]
 
 
 @dataclass

@@ -69,7 +69,7 @@ Agent mengirim field berikut:
   "agent_id": "endpoint-host-root",
   "hostname": "endpoint-host",
   "source_ip": "192.168.8.x",
-  "event_type": "ssh_login_failed",
+  "event_type": "failed_ssh_login",
   "severity": "medium",
   "source": "/var/log/auth.log",
   "message": "raw log atau deskripsi event",
@@ -79,19 +79,18 @@ Agent mengirim field berikut:
 
 ## Event yang Didukung
 
-- `ssh_login_failed`
-- `ssh_login_success`
-- `sudo_failed`
+- `failed_ssh_login`
+- `successful_ssh_login`
+- `failed_sudo`
 - `user_created`
 - `user_deleted`
-- `package_activity`
-- `service_activity`
-- `service_status`
-- `service_status_changed`
+- `package_installed`
+- `service_started`
+- `service_stopped`
 - `file_created`
 - `file_modified`
 - `file_deleted`
-- `log_event`
+- `service_or_custom_log`
 
 ## Skenario Pengujian
 
