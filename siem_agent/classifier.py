@@ -6,7 +6,7 @@ from typing import Any
 from siem_agent.config import AgentConfig
 from siem_agent.events import create_event
 
-
+# classify log line
 def classify_log_line(config: AgentConfig, source: str, line: str) -> dict[str, Any]:
     normalized = line.strip()
     lower = normalized.lower()
