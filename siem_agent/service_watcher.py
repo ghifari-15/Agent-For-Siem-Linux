@@ -25,12 +25,20 @@ def service_status(service: str) -> str:
 
 def watch_service(service: str, config: AgentConfig, events: queue.Queue[dict[str, Any]]) -> None:
     previous = service_status(service)
-    events.put(create_event(config, "service_status", "info", f"Service {service} status: {previous}", service))
+    if previous in {"active", "activating"}:
+        events.put(create_event(config, "service_started", "low", f"Service {service} status: {previous}", service))
+    elif previous not in {"unknown", "inactive"}:
+        events.put(create_event(config, "service_stopped", "high", f"Service {service} status: {previous}", service))
 
     while True:
         time.sleep(config.interval)
         current = service_status(service)
         if current != previous:
-            severity = "medium" if current not in {"active", "activating"} else "low"
-            events.put(create_event(config, "service_status_changed", severity, f"Service {service}: {previous} -> {current}", service))
+            if current in {"active", "activating"}:
+                event_type = "service_started"
+                severity = "low"
+            else:
+                event_type = "service_stopped"
+                severity = "high"
+            events.put(create_event(config, event_type, severity, f"Service {service}: {previous} -> {current}", service))
             previous = current
