@@ -18,6 +18,8 @@ def service_status(service: str) -> str:
             text=True,
             timeout=5,
         )
+        if result.returncode == 4:
+            return "not-found"
         return result.stdout.strip() or result.stderr.strip() or "unknown"
     except (OSError, subprocess.SubprocessError):
         return "unknown"
@@ -25,6 +27,10 @@ def service_status(service: str) -> str:
 
 def watch_service(service: str, config: AgentConfig, events: queue.Queue[dict[str, Any]]) -> None:
     previous = service_status(service)
+    if previous == "not-found":
+        print(f"service not found, skipping: {service}")
+        return
+
     if previous in {"active", "activating"}:
         events.put(create_event(config, "service_started", "low", f"Service {service} status: {previous}", service))
     elif previous not in {"unknown", "inactive"}:

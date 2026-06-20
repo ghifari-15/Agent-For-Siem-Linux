@@ -48,6 +48,6 @@ def watch_directory(directory: str, config: AgentConfig, events: queue.Queue[dic
             events.put(create_event(config, "file_deleted", "medium", f"File deleted: {path}", str(root)))
         for path in sorted(set(current) & set(previous)):
             if current[path] != previous[path]:
-                events.put(create_event(config, "file_modified", "low", f"File modified: {path}", str(root)))
+                events.put(create_event(config, "file_modified", "medium", f"File modified: {path}", str(root)))
 
         previous = current
