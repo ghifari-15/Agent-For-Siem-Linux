@@ -5,9 +5,11 @@ import getpass
 import os
 import socket
 from dataclasses import dataclass
+from dotenv import load_dotenv
 
+load_dotenv()
 
-DEFAULT_SERVER_URL = "http://192.168.8.220:5000/api/events"
+DEFAULT_SERVER_URL = os.getenv("SERVER_URL")
 DEFAULT_LOG_FILES = ["/var/log/auth.log", "/var/log/syslog"]
 DEFAULT_WATCH_DIRS = ["/tmp/siem-watch"]
 DEFAULT_SERVICES = ["ssh", "sshd"]
