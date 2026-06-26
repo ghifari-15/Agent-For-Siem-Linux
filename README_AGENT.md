@@ -4,7 +4,7 @@ Agent ini berjalan di VM endpoint Linux untuk membaca log, memonitor perubahan f
 
 ## Endpoint Default
 
-- URL: `http://192.168.8.220:5000/api/events`
+- URL: `<SIEM_SERVER_API>/api/events`
 - Method: `POST`
 - Content-Type: `application/json`
 
